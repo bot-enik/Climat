@@ -134,7 +134,7 @@ void Speed_Count_FSM (struct forward_data_str_ADC *ADC_ptr,
       
       setFanToMeasure(*good_Fan_p);
       
-      // If two or more fans is good, then set fans_state[7] to zero
+      // If two or more fans is good, then set fans_state[7] to zero////////////
       if((fans_state[0] + fans_state[1] + fans_state[2] <= 1) &&
          (fans_state[4] + fans_state[5] + fans_state[6] >= 2))
          {fans_state[7] = 0;}

@@ -36,7 +36,7 @@ void USART_Init_1(void) {
       RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
       
       USART_InitTypeDef USART_InitStruct;
-      USART_InitStruct.USART_BaudRate = 115200;
+      USART_InitStruct.USART_BaudRate = 9600;
       USART_InitStruct.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
       USART_InitStruct.USART_Mode = USART_Mode_Rx|USART_Mode_Tx;
       USART_InitStruct.USART_Parity = USART_Parity_No; 
