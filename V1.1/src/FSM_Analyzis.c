@@ -70,11 +70,11 @@ void Analyzis_Process_FSM ( struct forward_data_str_Temp *Temp_ptr,
               // (from sensors datasheets)
               // Also they must be lower than MAX TEMP values
               if(
+                 (((hum_HDC   > 99)  || (hum_HDC   <= 0)) && HUMIDITY_USE) ||
                  (temp_HDC  > TEMP_UP_TR)||(temp_HDC  < -128)  ||
-                 (hum_HDC   > 99)        ||(hum_HDC   <= 0)   ||
                  (temp_MAX1 > TEMP_UP_TR)||(temp_MAX1 < -128)  ||
                  (temp_MAX2 > TEMP_UP_TR)||(temp_MAX2 < -128)
-                 ) 
+                ) 
               { *current_state_p = EMERGENCY;  *error_type_p = TEMP_EXCEED_TR;}  
               else {
                  // Temp values must be approximately equal
@@ -83,7 +83,7 @@ void Analyzis_Process_FSM ( struct forward_data_str_Temp *Temp_ptr,
                  if((temp_itog - temp_MAX1 > MAX_TEMP_DEVIATION) || 
                     (temp_itog - temp_HDC  > MAX_TEMP_DEVIATION) ||
                     (temp_itog - temp_MAX2 > MAX_TEMP_DEVIATION) 
-                    )
+                   )
                  { *current_state_p = EMERGENCY; *error_type_p = TEMP_DEVIATION_ERROR;}
                  else {
                    // Looking for values out of range
@@ -91,8 +91,8 @@ void Analyzis_Process_FSM ( struct forward_data_str_Temp *Temp_ptr,
                    if((temp_HDC  < TEMP_PWR_ON) ||
                       (temp_MAX1 < TEMP_PWR_ON) ||
                       (temp_MAX2 < TEMP_PWR_ON) ||
-                      (hum_HDC > HUM_UP_TR) 
-                      )
+                      ((hum_HDC > HUM_UP_TR) && HUMIDITY_USE)
+                     )
                    { *current_state_p = HEATING_AND_DRYING; *error_type_p = NO_ERROR;}
                    else
                    // If all right then NORMAL *current_state_p
@@ -101,10 +101,10 @@ void Analyzis_Process_FSM ( struct forward_data_str_Temp *Temp_ptr,
                    // But temp can be higher than TEMP_UP_TR_INC_HUM
                    // AND humidity is higher than HUM_UP_TR
                    // In is case it will be ENERGENCY
-                   if ((hum_HDC > HUM_UP_TR_INC_TEMP) && ( (temp_HDC  > TEMP_UP_TR_INC_HUM) || 
+                   if (((hum_HDC > HUM_UP_TR_INC_TEMP) && ( (temp_HDC  > TEMP_UP_TR_INC_HUM) || 
                                                            (temp_MAX1 > TEMP_UP_TR_INC_HUM) ||
                                                            (temp_MAX2 > TEMP_UP_TR_INC_HUM) 
-                       ))
+                       )) && HUMIDITY_USE)
                    { *current_state_p = EMERGENCY; *error_type_p = HUM_INC_TEMP_ERROR;}
                  }
               } 

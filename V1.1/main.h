@@ -48,16 +48,17 @@
 
 // Heaters on, USART off. 
 // Will define SAN_ACE_80 fan
-#define PBS_MODE                 (0)
+#define PBS_MODE                 (1)
 
-// Dont touch if dont know
+// Dont touch if dont know (must be 0)
 #define GPIO_FEEDBACK_ON         (0)
 #define DEBUG_ON                 (0)
-
+// Look at the humidity values or not, to set the current state
+#define HUMIDITY_USE             (0) 
 
 // Heaters off, USART on.
 // Will define SAN_ACE_92W fan
-#define ATS_MODE              (1)
+#define ATS_MODE                 (0)
 
 
               /**** Temperature and humidity constants ****/
